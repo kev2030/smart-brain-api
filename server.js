@@ -55,13 +55,13 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
     const { email, name, password } = req.body;
-    console.log(email, name, password)
-    bcrypt.hash(password, null, null, function(err, hash) {
-        console.log(hash);
-    });
-    
-    res.send("completed")
- 
+    db('users').insert({
+          email: email,
+          name: name,
+          joined: new Date()
+    }).then(console.log)
+        
+    res.json(database.users[database.users.length-1]);
 })
 
 app.get('/test', (req, res) => {
